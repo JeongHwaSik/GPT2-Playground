@@ -115,6 +115,9 @@ class nanoGPT2(nn.Module):
         # Final Linear Head
         self.lm_head = nn.Linear(config.emb_dim, config.vocab_size, bias=False)
 
+        # weight sharing scheme (saved 30% of the total parameters)
+        self.transformer.wte.weight = self.lm_head.weight
+
     def forward(self, x, targets=None):
         B, T = x.size()
         assert T <= self.config.block_size, f"Cannot forward sequence of length {T}, block size is only {self.config.block_size}"
