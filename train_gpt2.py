@@ -21,6 +21,8 @@ class CausalSelfAttention(nn.Module):
         self.c_attn = nn.Linear(config.emb_dim, 3 * config.emb_dim, bias=True)
         # projection layer at the last of attention computation
         self.c_proj = nn.Linear(config.emb_dim, config.emb_dim, bias=True)
+        # 🐣 modified initialization which accounts for the accumulation on the residual path
+        self.c_proj.RESIDUAL_SCALE_INIT = 1 # flag
 
         # mask for Masked Attention (bias: (1, 1, T, T))
         self.register_buffer("bias", torch.tril(torch.ones(config.block_size, config.block_size)).view(1, 1, config.block_size, config.block_size))
@@ -60,6 +62,8 @@ class MLP(nn.Module):
         self.gelu = nn.GELU(approximate='tanh')
         # projection layer
         self.c_proj = nn.Linear(4 * config.emb_dim, config.emb_dim, bias=True)
+        # 🐣 modified initialization which accounts for the accumulation on the residual path
+        self.c_proj.RESIDUAL_SCALE_INIT = 1  # flag
 
     def forward(self, x):
         x = self.c_fc(x)
@@ -113,10 +117,24 @@ class nanoGPT2(nn.Module):
             ln_f = nn.LayerNorm(config.emb_dim),
         ))
         # Final Linear Head
-        self.lm_head = nn.Linear(config.emb_dim, config.vocab_size, bias=False)
+        self.lm_head = nn.Linear(config.emb_dim, config.vocab_size, bias=False) # (B, T, C) -> (B, T, vocab_size)
 
-        # weight sharing scheme (saved 30% of the total parameters)
+        # 🦄weight sharing scheme (saved 30% of the total parameters)
         self.transformer.wte.weight = self.lm_head.weight
+
+        # 🐣init parameters
+        self.apply(self._init_weights)
+
+    def _init_weights(self, module):
+        if isinstance(module, nn.Linear):
+            std = 0.02
+            if hasattr(module, "RESIDUAL_SCALE_INIT"):
+                std += (2 * self.config.num_heads) ** -0.5
+            torch.nn.init.normal_(module.weight, mean=0.0, std=std)
+            if module.bias is not None:
+                torch.nn.init.zeros_(module.bias)
+        elif isinstance(module, nn.Embedding):
+            torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
 
     def forward(self, x, targets=None):
         B, T = x.size()
