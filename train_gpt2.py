@@ -267,7 +267,7 @@ if __name__ == '__main__':
     # Data Loader
     train_loader = DataLoaderLite(B=B, T=T)
 
-    # 👻 use TF32
+    # 👻 use TF32 for matrix multiplication and convolution operation
     torch.set_float32_matmul_precision('high')
 
     # Model
@@ -300,7 +300,10 @@ if __name__ == '__main__':
         x, y = train_loader.next_batch()
         x, y = x.to(device), y.to(device)
 
-        logits, loss = model.forward(x, y)
+        # 👽 use mixed precision of FP32 and BF32 as a tensor format
+        # ❗️must use scaler when using FP16 as it truncates exponent (range) part❗️
+        with torch.autocast(device_type=device, dtype=torch.bfloat16):
+            logits, loss = model.forward(x, y)
 
         lr = get_lr(step)
         for param_group in optimizer.param_groups:
