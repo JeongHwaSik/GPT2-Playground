@@ -292,6 +292,7 @@ if __name__ == '__main__':
     # Optimizer
     optimizer = torch.optim.AdamW(model.parameters(), lr=6e-4, betas=(0.9, 0.95), eps=1e-8, weight_decay=0.1)
 
+    print("AUTOCAST")
     # optimize!!!
     for step in range(max_steps):
         t0 = time.time() # t0 --------------------------------------------------------------------
