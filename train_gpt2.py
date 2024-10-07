@@ -267,6 +267,9 @@ if __name__ == '__main__':
     # Data Loader
     train_loader = DataLoaderLite(B=B, T=T)
 
+    # 👻 use TF32
+    torch.set_float32_matmul_precision('high')
+
     # Model
     model = nanoGPT2(GPTConfig())
     model = model.to(device)
