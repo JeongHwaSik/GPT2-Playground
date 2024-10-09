@@ -37,12 +37,15 @@ class CausalSelfAttention(nn.Module):
         k = k.view(B, T, self.num_heads, C // self.num_heads).transpose(1, 2)
         v = v.view(B, T, self.num_heads, C // self.num_heads).transpose(1, 2)
 
-        # MHSA mechanism (B, M, T, T)
-        # ❗need to divide by (M//C) for learning stability in SoftMax --> see q.var(), k.var(), attn_weight.var()❗
-        attn_weight = (q @ k.transpose(-2, -1)) * (1 / math.sqrt(q.size(-1)))
-        attn_weight = attn_weight.masked_fill(self.bias[:,:,:T,:T] == 0, float("-inf"))
-        attn_weight = F.softmax(attn_weight, dim=-1)
-        out = attn_weight @ v # (B, M, T, C//M)
+        # # MHSA mechanism (B, M, T, T)
+        # # ❗need to divide by (M//C) for learning stability in SoftMax --> see q.var(), k.var(), attn_weight.var()❗
+        # attn_weight = (q @ k.transpose(-2, -1)) * (1 / math.sqrt(q.size(-1)))
+        # attn_weight = attn_weight.masked_fill(self.bias[:,:,:T,:T] == 0, float("-inf"))
+        # attn_weight = F.softmax(attn_weight, dim=-1)
+        # out = attn_weight @ v # (B, M, T, C//M)
+
+        # ⚡️FlashAttention
+        out = F.scaled_dot_product_attention(q, k, v, is_causal=True)
 
         out = out.transpose(1,2).contiguous().view(B, T, C) # (B, T, C)
         out = self.c_proj(out)
