@@ -275,6 +275,7 @@ if __name__ == '__main__':
     model = model.to(device)
 
     # ☠️ model compile (think of it like gcc)
+    print("Model Compile")
     model = torch.compile(model)
 
     # LR scheduler
