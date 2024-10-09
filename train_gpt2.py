@@ -274,7 +274,7 @@ if __name__ == '__main__':
     torch.set_float32_matmul_precision('high')
 
     # Model
-    model = nanoGPT2(GPTConfig())
+    model = nanoGPT2(GPTConfig(vocab_size=50304)) # ✊ more beautiful number
     model = model.to(device)
 
     # ☠️ model compile (think of it like gcc)
