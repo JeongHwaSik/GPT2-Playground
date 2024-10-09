@@ -274,6 +274,9 @@ if __name__ == '__main__':
     model = nanoGPT2(GPTConfig())
     model = model.to(device)
 
+    # ☠️ model compile (think of it like gcc)
+    model = torch.compile(model)
+
     # LR scheduler
     def get_lr(iter):
         """
