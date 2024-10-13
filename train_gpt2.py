@@ -305,6 +305,8 @@ if __name__ == '__main__':
     # ☠️ model compile (think of it like gcc; torch>=2.0.0)
     model = torch.compile(model)
 
+    print("Fused Implementation")
+
     # LR scheduler
     def get_lr(iter):
         """
