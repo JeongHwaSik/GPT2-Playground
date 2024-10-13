@@ -316,6 +316,10 @@ if __name__ == '__main__':
             param_group['lr'] = lr
 
         loss.backward()
+
+        # ✂️ gradient clipping after calculating all gradients
+        norm = torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+
         optimizer.step()
         torch.cuda.synchronize() # wait GPU to finish all the above works scheduled before
         t1 = time.time() # t1 --------------------------------------------------------------------
@@ -324,7 +328,7 @@ if __name__ == '__main__':
         dt = (t1 - t0) * 1000
         tokens_processed = train_loader.B * train_loader.T
         tokens_per_sec = tokens_processed / dt
-        print(f"step: {step} | loss: {loss.item():.6f} | lr: {lr:.4e} | dt: {dt:.2f}ms | tok/sec: {tokens_per_sec:.2f}")
+        print(f"step: {step} | loss: {loss.item():.6f} | norm:{norm:.4f} | lr: {lr:.4e} | dt: {dt:.2f}ms | tok/sec: {tokens_per_sec:.2f}")
 
 
 
