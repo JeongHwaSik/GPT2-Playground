@@ -280,6 +280,8 @@ if __name__ == '__main__':
     # ☠️ model compile (think of it like gcc)
     model = torch.compile(model)
 
+    print("Gradient CLIPPING")
+
     # LR scheduler
     def get_lr(iter):
         """
