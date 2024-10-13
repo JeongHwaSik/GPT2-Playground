@@ -284,8 +284,13 @@ if __name__ == '__main__':
         device="mps"
     print(f"using device: {device}")
 
-    B = 8
-    T = 1024
+    total_batch_size = 524288 # 2^19 ~0.5M, total number of tokens per batch
+    B = 8 # micro batch
+    T = 1024 # sequence length
+    assert total_batch_size % (B*T) == 0, "make sure total_batch_size is divisible by B * T"
+    grad_accum_steps = total_batch_size // (B * T)
+    print(f"total desired batch size: {total_batch_size}")
+    print(f"=> calculated gradient accumulation steps: {grad_accum_steps}")4
 
     max_lr = 6e-4
     min_lr = max_lr * 0.1
@@ -331,22 +336,25 @@ if __name__ == '__main__':
         t0 = time.time() # t0 --------------------------------------------------------------------
         optimizer.zero_grad()
 
-        x, y = train_loader.next_batch()
-        x, y = x.to(device), y.to(device)
+        loss_accum = 0.0
+        for micro_step in range(grad_accum_steps):
+            x, y = train_loader.next_batch()
+            x, y = x.to(device), y.to(device)
 
-        # 👽 use mixed precision of FP32 and BF32 as a tensor format
-        # ❗️must use scaler when using FP16 as it truncates exponent (range) part❗️
-        with torch.autocast(device_type=device, dtype=torch.bfloat16):
-            logits, loss = model.forward(x, y)
+            # 👽 use mixed precision of FP32 and BF32 as a tensor format
+            # ❗️must use scaler when using FP16 as it truncates exponent (range) part❗️
+            with torch.autocast(device_type=device, dtype=torch.bfloat16):
+                logits, loss = model.forward(x, y)
+            loss = loss / grad_accum_steps  # ❗️F.cross_entropy() has reduction='mean' by default❗
+            loss_accum += loss.detach()
+            loss.backward() # this will accumulate(+=) the gradients
+
+        # ✂️ gradient clipping after calculating all gradients
+        norm = torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
         lr = get_lr(step)
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
-
-        loss.backward()
-
-        # ✂️ gradient clipping after calculating all gradients
-        norm = torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
         optimizer.step()
         torch.cuda.synchronize() # wait GPU to finish all the above works scheduled before
@@ -354,9 +362,9 @@ if __name__ == '__main__':
 
         # calculate some useful metrics
         dt = (t1 - t0) * 1000
-        tokens_processed = train_loader.B * train_loader.T
+        tokens_processed = train_loader.B * train_loader.T * grad_accum_steps
         tokens_per_sec = tokens_processed / dt
-        print(f"step: {step} | loss: {loss.item():.6f} | norm:{norm:.4f} | lr: {lr:.4e} | dt: {dt:.2f}ms | tok/sec: {tokens_per_sec:.2f}")
+        print(f"step: {step} | loss: {loss_accum.item():.6f} | norm:{norm:.4f} | lr: {lr:.4e} | dt: {dt:.2f}ms | tok/sec: {tokens_per_sec:.2f}")
 
 
 
