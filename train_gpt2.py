@@ -1,4 +1,5 @@
 import tiktoken
+import inspect
 import math
 import time
 import torch
@@ -163,6 +164,30 @@ class nanoGPT2(nn.Module):
 
         return logits, loss
 
+    def configure_optimizer(self, weight_decay, learning_rate, device):
+        # all parameters that requires_grad
+        param_dict = {pn: p for pn, p in self.named_parameters()}
+        param_dict = {pn: p for pn, p in self.named_parameters() if p.requires_grad}
+
+        # any parameters that is 2D will be weight decayed, otherwise no
+        # e.g. all biases and layer_norms do not decay
+        decay_params = [p for n, p in param_dict.items() if p.dim() >= 2]
+        nodecay_params = [p for n, p in param_dict.items() if p.dim() < 2]
+        optim_groups = [
+            {'params': decay_params, 'weight_decay': weight_decay},
+            {'params': nodecay_params, 'weight_decay': 0.0},
+        ]
+        num_decay_params = sum(p.numel() for p in decay_params)
+        num_nodecay_params = sum(p.numel() for p in nodecay_params)
+        print(f"num decayed parameter tensors: {len(decay_params)}, with {num_decay_params:,} parameters")
+        print(f"num non-decayed parameter tensors: {len(nodecay_params)}, with {num_nodecay_params:,} parameters")
+
+        fused_available = 'fused' in inspect.signature(torch.optim.AdamW).parameters # check if possible b/c it's brand new
+        use_fused = fused_available and 'cuda' in device
+        print(f"using fused AdamW: {use_fused}")
+        optimizer = torch.optim.AdamW(optim_groups, lr=learning_rate, betas=(0.9, 0.95), eps=1e-8, weight_decay=weight_decay, fused=use_fused)
+        return optimizer
+
     @classmethod
     def from_pretrained(cls, model_type):
         """
@@ -277,7 +302,7 @@ if __name__ == '__main__':
     model = nanoGPT2(GPTConfig(vocab_size=50304)) # ✊ more beautiful number
     model = model.to(device)
 
-    # ☠️ model compile (think of it like gcc)
+    # ☠️ model compile (think of it like gcc; torch>=2.0.0)
     model = torch.compile(model)
 
     # LR scheduler
@@ -296,7 +321,10 @@ if __name__ == '__main__':
         return min_lr + coeff * (max_lr - min_lr)
 
     # Optimizer
-    optimizer = torch.optim.AdamW(model.parameters(), lr=6e-4, betas=(0.9, 0.95), eps=1e-8, weight_decay=0.1)
+    # optimizer = torch.optim.AdamW(model.parameters(), lr=6e-4, betas=(0.9, 0.95), eps=1e-8, weight_decay=0.1)
+
+    # 👬 optimizer with parameter grouping (fused implementation)
+    optimizer = model.configure_optimizer(weight_decay=0.1, learning_rate=6e-4, device=device)
 
     # optimize!!!
     for step in range(max_steps):
