@@ -133,7 +133,7 @@ class nanoGPT2(nn.Module):
         if isinstance(module, nn.Linear):
             std = 0.02
             if hasattr(module, "RESIDUAL_SCALE_INIT"):
-                std += (2 * self.config.num_heads) ** -0.5
+                std *= (2 * self.config.num_heads) ** -0.5
             torch.nn.init.normal_(module.weight, mean=0.0, std=std)
             if module.bias is not None:
                 torch.nn.init.zeros_(module.bias)
