@@ -133,7 +133,7 @@ class nanoGPT2(nn.Module):
         if isinstance(module, nn.Linear):
             std = 0.02
             if hasattr(module, "RESIDUAL_SCALE_INIT"):
-                std += (2 * self.config.num_heads) ** -0.5
+                std *= (2 * self.config.num_heads) ** -0.5
             torch.nn.init.normal_(module.weight, mean=0.0, std=std)
             if module.bias is not None:
                 torch.nn.init.zeros_(module.bias)
@@ -167,7 +167,7 @@ class nanoGPT2(nn.Module):
     def configure_optimizer(self, weight_decay, learning_rate, device):
         # all parameters that requires_grad
         param_dict = {pn: p for pn, p in self.named_parameters()}
-        param_dict = {pn: p for pn, p in self.named_parameters() if p.requires_grad}
+        param_dict = {pn: p for pn, p in param_dict.items() if p.requires_grad}
 
         # any parameters that is 2D will be weight decayed, otherwise no
         # e.g. all biases and layer_norms do not decay
@@ -323,7 +323,7 @@ if __name__ == '__main__':
         return min_lr + coeff * (max_lr - min_lr)
 
     # Optimizer
-    # optimizer = torch.optim.AdamW(model.parameters(), lr=6e-4, betas=(0.9, 0.95), eps=1e-8, weight_decay=0.1)
+    # optimizer = torch.optim.AdamW(model.parameters(), lr=6e-4, betas=(0.9, 0.95), eps=1e-8, weight_decay=0.1, fused=True)
 
     # 👬 optimizer with parameter grouping (fused implementation)
     optimizer = model.configure_optimizer(weight_decay=0.1, learning_rate=6e-4, device=device)
