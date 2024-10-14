@@ -133,7 +133,7 @@ class nanoGPT2(nn.Module):
         if isinstance(module, nn.Linear):
             std = 0.02
             if hasattr(module, "RESIDUAL_SCALE_INIT"):
-                std += (2 * self.config.num_heads) ** -0.5
+                std *= (2 * self.config.num_heads) ** -0.5
             torch.nn.init.normal_(module.weight, mean=0.0, std=std)
             if module.bias is not None:
                 torch.nn.init.zeros_(module.bias)
@@ -285,12 +285,12 @@ if __name__ == '__main__':
     print(f"using device: {device}")
 
     total_batch_size = 524288 # 2^19 ~0.5M, total number of tokens per batch
-    B = 8 # micro batch
+    B = 4 # micro batch
     T = 1024 # sequence length
     assert total_batch_size % (B*T) == 0, "make sure total_batch_size is divisible by B * T"
     grad_accum_steps = total_batch_size // (B * T)
     print(f"total desired batch size: {total_batch_size}")
-    print(f"=> calculated gradient accumulation steps: {grad_accum_steps}")4
+    print(f"=> calculated gradient accumulation steps: {grad_accum_steps}")
 
     max_lr = 6e-4
     min_lr = max_lr * 0.1
