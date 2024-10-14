@@ -160,7 +160,7 @@ class nanoGPT2(nn.Module):
         if targets is not None:
             # logits: (B, T, vocab_size) -> (B * T, vocab_size)
             # targets: (B, T) -> (B * T,)
-            loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))
+            loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), reduction='mean') #❗check reduction❗
 
         return logits, loss
 
@@ -290,7 +290,7 @@ if __name__ == '__main__':
     assert total_batch_size % (B*T) == 0, "make sure total_batch_size is divisible by B * T"
     grad_accum_steps = total_batch_size // (B * T)
     print(f"total desired batch size: {total_batch_size}")
-    print(f"=> calculated gradient accumulation steps: {grad_accum_steps}")4
+    print(f"=> calculated gradient accumulation steps: {grad_accum_steps}")
 
     max_lr = 6e-4
     min_lr = max_lr * 0.1
@@ -345,7 +345,9 @@ if __name__ == '__main__':
             # ❗️must use scaler when using FP16 as it truncates exponent (range) part❗️
             with torch.autocast(device_type=device, dtype=torch.bfloat16):
                 logits, loss = model.forward(x, y)
+            print(loss)
             loss = loss / grad_accum_steps  # ❗️F.cross_entropy() has reduction='mean' by default❗
+            print(loss)
             loss_accum += loss.detach()
             loss.backward() # this will accumulate(+=) the gradients
 
