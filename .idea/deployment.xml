@@ -9,6 +9,20 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="docker18">
+        <serverdata>
+          <mappings>
+            <mapping deploy="./private/nano-GPT2" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="docker18_interpreter">
+        <serverdata>
+          <mappings>
+            <mapping deploy="./private/nano-GPT2" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="docker1_interpreter">
         <serverdata>
           <mappings>
