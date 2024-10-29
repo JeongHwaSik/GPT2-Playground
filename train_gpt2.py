@@ -340,6 +340,8 @@ if __name__ == '__main__':
         model = DDP(model, device_ids=[ddp_local_rank], find_unused_parameters=True) # ❗️device_ids should be a ddp_local_rank NOT ddp_rank❗
     raw_model = model.module if ddp else model
 
+    print("DDP")
+
     # LR scheduler
     def get_lr(iter):
         """
