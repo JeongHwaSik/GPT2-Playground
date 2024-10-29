@@ -72,3 +72,12 @@ Up to section 3-10, we used a batch size (number of tokens) of 8192 ($B×T=8×10
 
 For our experiments, I set a total batch size of 524,288 to approach 0.5M while maintaining a "beautiful number" ($2^{19}=524288$) as mentioned in the section 3-8. With this much larger total batch size compared to previous sections, the model learned more diverse features (indicated by smaller loss) and exhibited more stable learning (with the gradient norm decreasing to less than one). Moreover, I compared two variants with the same total batch size but different micro batch sizes. As expected, the outputs showed almost same results (see the losses for each step).
 
+## 12. 🦈 DistributedDataParallel (DDP)
+Before explaining DistributedDataParallel in PyTorch, let's clarify some related terms. Think of a "Node" as a server containing multiple GPUs. "Local Rank" refers to a GPU's relative number (or process number) within a single node, starting from zero. (Note: Local rank is primarily used in multi-node processing.) "World Size" represents the total number of GPUs across all servers in use, while "Rank" denotes a GPU's absolute number (or process number) across all servers. 
+
+For example, if we have 8 GPUs in a single server (node), we can run 8 processes in parallel (with local ranks and ranks from 0 to 7, and a world size of 8). This is called distributed computing. All these processes perform forward and backward passes equally, but each process trains on different data. Consequently, all GPUs will have different gradients, which we need to average to update parameters. This averaging typically occurs on a master GPU (usually the one with rank zero), which gathers all gradients from other GPUs and averages them.
+
+- Training with a single node with 8 GPUs
+`
+CUDA_VISIBLE_DEVIES=0,1,2,3,4,5,6,7 torchrun --standalone --nproc_per_node=8 train_gpt2.py
+`
