@@ -78,6 +78,7 @@ Before explaining DistributedDataParallel in PyTorch, let's clarify some related
 For example, if we have 8 GPUs in a single server (node), we can run 8 processes in parallel (with local ranks and ranks from 0 to 7, and a world size of 8). This is called distributed computing. All these processes perform forward and backward passes equally, but each process trains on different data. Consequently, all GPUs will have different gradients, which we need to average to update parameters. This averaging typically occurs on a master GPU (usually the one with rank zero), which gathers all gradients from other GPUs and averages them.
 
 - Training with a single node with 8 GPUs
+
 `
 CUDA_VISIBLE_DEVIES=0,1,2,3,4,5,6,7 torchrun --standalone --nproc_per_node=8 train_gpt2.py
 `
