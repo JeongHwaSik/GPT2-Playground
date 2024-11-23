@@ -5,12 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a400173b-5fc7-4242-a1fb-f15f57a0e8be" name="Changes" comment="Baseline nanoGPT-2 model from scratch">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fineweb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_gpt2.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_gpt2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -78,6 +87,7 @@
       <workItem from="1729328253242" duration="212000" />
       <workItem from="1730196267454" duration="19000" />
       <workItem from="1730203041117" duration="6066000" />
+      <workItem from="1730879102911" duration="40000" />
     </task>
     <task id="LOCAL-00001" summary="Baseline nanoGPT-2 model from scratch">
       <option name="closed" value="true" />
