@@ -11,8 +11,7 @@ The results in the table below compare the training speed improvements achieved 
 The 'Time' column represents the time taken per epoch, measured in microseconds, while 'TPS' stands for tokens per second, indicating the number of tokens the model processes per second. 
 Through seven stages of incremental optimization, a 386x improvement in training speed was achieved compared to the initial training speed.
 
-Detailed information about default settings and all 12 training optimizations can be found [here]()
-<p align="center">
-![Screenshot 2024-11-23 at 4 01 05 PM](https://github.com/user-attachments/assets/8d001ea5-1fd1-460f-8ed5-69000c94637f)
-</p>
+![Screenshot 2024-11-23 at 4 01 05 PM](https://github.com/user-attachments/assets/fea489a0-6fc0-4280-a2e8-9999b6b3db5b)
 
+## Details
+Detailed information about default settings and all 12 training optimizations can be found [here](https://github.com/JeongHwaSik/nano-GPT2/blob/main/DETAILS.md)
