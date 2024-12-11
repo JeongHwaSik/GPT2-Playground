@@ -10,8 +10,9 @@ Navigate to the appropriate branch and run `python3 train_gpt2.py` to see what h
 The results in the table below compare the training speed improvements achieved by sequentially applying the methodologies for speed-up training shown in the graph above. 
 The 'Time' column represents the time taken per epoch, measured in microseconds, while 'TPS' stands for tokens per second, indicating the number of tokens the model processes per second. 
 Through seven stages of incremental optimization, a 386x improvement in training speed was achieved compared to the initial training speed.
-
-![Screenshot 2024-11-23 at 4 01 05 PM](https://github.com/user-attachments/assets/fea489a0-6fc0-4280-a2e8-9999b6b3db5b)
+<p align="center">
+<img width="700" alt="Screenshot 2024-11-23 at 4 01 05 PM" src="https://github.com/user-attachments/assets/fea489a0-6fc0-4280-a2e8-9999b6b3db5b">
+</p>
 
 ## Details
 Detailed information about default settings and all 12 training optimizations can be found [here](https://github.com/JeongHwaSik/nano-GPT2/blob/main/DETAILS.md)
@@ -25,4 +26,8 @@ Detailed information about default settings and all 12 training optimizations ca
 </p>
 
 ## 🏄‍♂️ Training Tokenizer
- I implemented Byte Pair Encoding (BPE) tokenizer based on [GPT-2 github page](https://github.com/openai/gpt-2/blob/master/src/encoder.py) and trained it with ‘BTS’ wikipedia page. See the results with the following command `python3 tokenizer.py`.
+ I implemented Byte Pair Encoding (BPE) tokenizer based on [GPT-2 github page](https://github.com/openai/gpt-2/blob/master/src/encoder.py) and trained it with BTS wikipedia page. See the results with the following command `python3 tokenizer.py`.
+<p align="center">
+<img width="500" alt="Screen Recording 2024-12-11 at 11 50 13 PM" src="https://github.com/user-attachments/assets/8e4da457-cbc6-4417-b104-344e0f97427b">
+</p>
+
