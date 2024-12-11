@@ -1,4 +1,4 @@
-# Training Optimization Analysis with GPT-2
+# 1. Training Optimization Analysis with GPT-2
 
 ## 🌴🌳🌲 Branch Overview
 Navigate to the appropriate branch and run `python3 train_gpt2.py` to see what happens❗️❗️❗️
@@ -15,3 +15,14 @@ Through seven stages of incremental optimization, a 386x improvement in training
 
 ## Details
 Detailed information about default settings and all 12 training optimizations can be found [here](https://github.com/JeongHwaSik/nano-GPT2/blob/main/DETAILS.md)
+
+</br>
+
+# 2. Tokenizer
+ Byte Pair Encoding tokenizer was first introduced in the [GPT-2 paper](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) as a practical compromise between character-level and word-level language modeling, and it operates independently of the language models (see the figrue below). The BPE tokenizer works by grouping relevant Unicode byte sequences using regular expressions, then progressively merging the most frequent repeated sequences into single tokens, step-by-step.
+<p align="center">
+  <img width="500" alt="Screenshot 2024-12-11 at 11 21 21 PM" src="https://github.com/user-attachments/assets/603567b7-f558-4f53-a2f1-5d185b4345f3" />
+</p>
+
+## 🏄‍♂️ Training Tokenizer
+ I implemented Byte Pair Encoding (BPE) tokenizer based on [GPT-2 github page](https://github.com/openai/gpt-2/blob/master/src/encoder.py) and trained it with ‘BTS’ wikipedia page. See the results with the following command `python3 tokenizer.py`.
