@@ -7,15 +7,17 @@ class BPETokenizer:
     referenced by https://github.com/openai/gpt-2/blob/master/src/encoder.py
     """
 
-    def __init__(self, num_merges):
+    def __init__(self, vocab_size):
 
-        self.num_merges = num_merges
-        self.vocab_size = 256 + num_merges
+        assert vocab_size > 255, "vocab_size should be greater than 255"
+
+        self.vocab_size = vocab_size
+        self.num_merges = vocab_size - 256
 
         self.merges = {}  # merged (pair: idx) for encoding
         self.vocabs_cache = {idx: bytes([idx]) for idx in range(255)}  # vocabs_cache for decoding
 
-        # regular expression forcing not to merge certain pattern!
+        # GPT2 regular expression forcing not to merge certain pattern!
         self.gpt2pat = re.compile(r"""'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+""")
 
     def train(self, text):
@@ -106,3 +108,20 @@ class BPETokenizer:
                 new_ids.append(ids[i])
                 i += 1
         return new_ids
+
+
+if __name__ == "__main__":
+
+    train_text = open("data/bts_wikipedia.txt", "r", encoding="utf-8").read()
+
+    tokenizer = BPETokenizer(vocab_size=512)
+    tokenizer.train(train_text)
+
+    val_text = "BTS stands for Bangtan Sonyeon Dan"
+    print(f"Text: {val_text}")
+    encode = tokenizer.encode(val_text)
+    print(f"Encoded Results: ", encode)
+    decode = tokenizer.decode(encode)
+    print(f"Decoded Results: ", decode)
+
+
