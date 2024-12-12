@@ -259,7 +259,7 @@ class DataLoaderLite:
         assert split in {'train', 'val'}
 
         # 📕 Shakespeare dataset
-        with open("shakespeare.txt", "r") as f:
+        with open("./data/shakespeare.txt", "r") as f:
             text = f.read()
         enc = tiktoken.get_encoding("gpt2")
         tokens = enc.encode(text)
@@ -419,8 +419,6 @@ if __name__ == '__main__':
     # ❗️after training, need to destroy all the processes❗️
     if ddp:
         destroy_process_group()
-
-    torch.save(model.state_dict(), f"checkpoints/gpt2_shakespeare_{epoch}ep.pth")
 
 
 
