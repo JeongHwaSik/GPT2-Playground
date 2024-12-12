@@ -1,1 +1,1 @@
-# nano-GPT2
+# (1) CPU vs. GPU
