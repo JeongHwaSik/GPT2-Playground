@@ -1,1 +1,1 @@
-# nano-GPT2
+# (3) Weight Initialization
