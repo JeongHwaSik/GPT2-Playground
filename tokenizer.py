@@ -54,7 +54,7 @@ class BPETokenizer:
     def encode(self, text):
         ids = self._get_ids(text)
 
-        new_ids = []
+        new_ids = [] # FIXME: something wrong!?
         for id in ids:
             while True:
                 stat = self._get_stats(id)
@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
     train_text = open("data/bts_wikipedia.txt", "r", encoding="utf-8").read()
 
-    tokenizer = BPETokenizer(vocab_size=512)
+    tokenizer = BPETokenizer(vocab_size=300)
     tokenizer.train(train_text)
 
     val_text = "BTS stands for Bangtan Sonyeon Dan"

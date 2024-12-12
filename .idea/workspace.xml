@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a400173b-5fc7-4242-a1fb-f15f57a0e8be" name="Changes" comment="Baseline nanoGPT-2 model from scratch">
-      <change afterPath="$PROJECT_DIR$/DETAILS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GPT2-Playground.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GPT2-Playground.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/bts_wikipedia.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/bts_wikipedia.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fineweb.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tokenizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/tokenizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_gpt2.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_gpt2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +46,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/JeongHwaSik/nano-GPT2.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/JeongHwaSik/GPT2-Playground.git&quot;,
     &quot;accountId&quot;: &quot;35f6f0c3-6293-4ae9-9711-9eb51044e035&quot;
   }
 }</component>
@@ -55,7 +64,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/jeonghwasik/Desktop/nano-GPT2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/jeonghwasik/Desktop/GPT2-Playground&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -65,6 +74,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -89,6 +103,7 @@
       <workItem from="1730203041117" duration="6066000" />
       <workItem from="1730879102911" duration="40000" />
       <workItem from="1732344507077" duration="978000" />
+      <workItem from="1733918324459" duration="15587000" />
     </task>
     <task id="LOCAL-00001" summary="Baseline nanoGPT-2 model from scratch">
       <option name="closed" value="true" />
