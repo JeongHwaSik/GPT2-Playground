@@ -1,1 +1,1 @@
-# nano-GPT2
+# (2) Parameter Sharing
