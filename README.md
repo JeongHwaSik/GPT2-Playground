@@ -31,3 +31,14 @@ Detailed information about default settings and all 12 training optimizations ca
 <img width="500" alt="Screen Recording 2024-12-11 at 11 50 13 PM" src="https://github.com/user-attachments/assets/8e4da457-cbc6-4417-b104-344e0f97427b">
 </p>
 
+
+# 3. Document Classification 
+
+I developed and compared several document classification models, including:
+
+- Naive Bayes Classifier
+- Linear Classifier with TF-IDF Embeddings
+- Naive RNN Classifier
+- RNN Classifier with GPT-2
+
+The performance of these models was evaluated using top-1 accuracy as the primary metric. The comparative results are presented below. For a more detailed analysis, please refer to this [link]().
