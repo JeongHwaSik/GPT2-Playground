@@ -15,8 +15,9 @@ Through seven stages of incremental optimization, a 386x improvement in training
 </p>
 
 ## Details
-Detailed information about default settings and all 12 training optimizations can be found [here](https://github.com/JeongHwaSik/nano-GPT2/blob/main/DETAILS.md)
+Detailed information about default settings and all 12 training optimizations can be found [🔥here🔥](https://github.com/JeongHwaSik/nano-GPT2/blob/main/DETAILS.md)
 
+<br>
 </br>
 
 # 2. Tokenizer
@@ -31,6 +32,8 @@ Detailed information about default settings and all 12 training optimizations ca
 <img width="500" alt="Screen Recording 2024-12-11 at 11 50 13 PM" src="https://github.com/user-attachments/assets/8e4da457-cbc6-4417-b104-344e0f97427b">
 </p>
 
+<br>
+</br>
 
 # 3. Document Classification 
 
@@ -41,4 +44,22 @@ I developed and compared several document classification models, including:
 - Naive RNN Classifier
 - RNN Classifier with GPT-2
 
-The performance of these models was evaluated using top-1 accuracy as the primary metric. The comparative results are presented below. For a more detailed analysis, please refer to this [link]().
+The performance of these models was evaluated using top-1 accuracy as the primary metric. The comparative results are presented below. For a more detailed analysis, please refer to this [link](https://github.com/JeongHwaSik/GPT2-Playground/tree/main/document_classification).
+
+<br>
+</br>
+
+# 4. Lyrics Generating AI
+
+I split the `train_gpt2.py` file into several modular components: `config.py`, `dataset.py`, `model.py`, `train.py`, and `generate.py`. 
+Afterward, I trained a GPT-2 decoder using the Spotify Million Song Dataset to create a lyrics generator.
+
+- Train with single GPU
+```
+python train.py
+```
+
+- Generate lyrics given 
+```
+python generate.py
+```
