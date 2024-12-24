@@ -6,18 +6,18 @@ import torch
 import torch.optim as optim
 
 from .dataset import NewsDataLoader
-from .classifier import RNNClassifier
+from .classifier import LSTMClassifier
 
 # Train: python -m document_classification.train.py
 learning_rate = 2e-4
-iters = 167621 * 1 # epochs = 1
+iters = 167621 * 10 # epochs = 10
 if torch.cuda.is_available():
     device = "cuda"
 else:
     device = "cpu"
 
 ds = NewsDataLoader(device=device)
-model = RNNClassifier()
+model = LSTMClassifier()
 optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
 
 model = model.to(device)
