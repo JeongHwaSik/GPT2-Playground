@@ -15,7 +15,7 @@ Through seven stages of incremental optimization, a 386x improvement in training
 </p>
 
 ## Details
-Detailed information about default settings and all 12 training optimizations can be found [🔥here🔥](https://github.com/JeongHwaSik/nano-GPT2/blob/main/DETAILS.md)
+Detailed information about default settings and all 12 training optimizations can be found [🔥here🔥](https://github.com/JeongHwaSik/GPT2-Playground/blob/main/optimization_analysis/README.md)
 
 <br>
 </br>
