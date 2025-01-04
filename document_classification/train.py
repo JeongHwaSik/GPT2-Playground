@@ -10,7 +10,7 @@ from .classifier import LSTMClassifier
 
 # Train: python -m document_classification.train.py
 learning_rate = 2e-4
-iters = 167621 * 10 # epochs = 10
+iters = 167621 * 2 # epochs = 2
 if torch.cuda.is_available():
     device = "cuda"
 else:
