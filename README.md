@@ -46,6 +46,10 @@ I developed and compared several document classification models, including:
 
 The performance of these models was evaluated using top-1 accuracy as the primary metric. The comparative results are presented below. For a more detailed analysis, please refer to this [link](https://github.com/JeongHwaSik/GPT2-Playground/tree/main/document_classification).
 
+<p align="center">
+<img width="500" alt="Screenshot 2025-01-04 at 11 21 30 PM" src="https://github.com/user-attachments/assets/c28f2e45-45a7-4c24-847a-6b817737f331" />
+</p>
+
 <br>
 </br>
 
