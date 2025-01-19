@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a400173b-5fc7-4242-a1fb-f15f57a0e8be" name="Changes" comment="Baseline nanoGPT-2 model from scratch">
-      <change afterPath="$PROJECT_DIR$/document_classification/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/document_classification/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/document_classification/classifier.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/document_classification/dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/document_classification/train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,8 +70,10 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/document_classification/data" />
+      <recent name="$PROJECT_DIR$/optimization_analysis" />
+      <recent name="$PROJECT_DIR$/document_classification/other_models" />
       <recent name="$PROJECT_DIR$/document_classification" />
+      <recent name="$PROJECT_DIR$/document_classification/data" />
       <recent name="$PROJECT_DIR$/data" />
     </key>
   </component>
@@ -104,7 +103,11 @@
       <workItem from="1732344507077" duration="978000" />
       <workItem from="1733918324459" duration="25173000" />
       <workItem from="1734413153426" duration="573000" />
-      <workItem from="1734920142500" duration="12990000" />
+      <workItem from="1734920142500" duration="18331000" />
+      <workItem from="1735120865831" duration="2249000" />
+      <workItem from="1735269285002" duration="232000" />
+      <workItem from="1736000272223" duration="1380000" />
+      <workItem from="1737257711652" duration="6032000" />
     </task>
     <task id="LOCAL-00001" summary="Baseline nanoGPT-2 model from scratch">
       <option name="closed" value="true" />
