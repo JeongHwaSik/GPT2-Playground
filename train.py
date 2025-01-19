@@ -51,11 +51,11 @@ if master_process:
     print(f"total desired batch size: {total_batch_size}")
     print(f"=> calculated gradient accumulation steps: {grad_accum_steps}")
 
-epoch = 100
+epoch = 50
 max_lr = 6e-4
 min_lr = max_lr * 0.1
 warmup_steps = 715  # 375e6 / 524288 = 715 (according to GPT2 paper, they warm up the lr with 375e6 tokens)
-max_steps = 19073 * epoch  # 10B / 524288 = 19073
+max_steps = 13 * epoch  # 70426172 / 524288 = 13.xx
 
 # Data Loader
 train_loader = DataLoaderLite(data_dir="data/spotify_millsongdata.csv", B=B, T=T, process_rank=ddp_rank, num_processes=ddp_world_size, master_process=master_process)
@@ -67,8 +67,8 @@ torch.set_float32_matmul_precision('high')
 model = GPT2(GPTConfig(vocab_size=50304))  # ✊ more beautiful number
 model = model.to(device)
 
-# model compile (think of it like gcc; torch>=2.0.0)
-model = torch.compile(model)
+# # model compile (think of it like gcc; torch>=2.0.0)
+# model = torch.compile(model) # TODO: How can I save and load compiled model??
 
 # wrap the model with DDP
 if ddp:
@@ -145,4 +145,4 @@ for step in range(max_steps):
 if ddp:
     destroy_process_group()
 
-torch.save(model.state_dict(), f"checkpoints/gpt2_lyrics_{epoch}ep.pth")
+torch.save(raw_model.state_dict(), f"checkpoints/gpt2_lyrics_{epoch}ep.pth")
