@@ -53,17 +53,30 @@ The performance of these models was evaluated using top-1 accuracy as the primar
 <br>
 </br>
 
-# 4. Lyrics Generating AI
+# 4. Lyric Writer AI
 
 I split the `train_gpt2.py` file into several modular components: `config.py`, `dataset.py`, `model.py`, `train.py`, and `generate.py`. 
-Afterward, I trained a GPT-2 decoder using the Spotify Million Song Dataset to create a lyrics generator.
+Afterward, I trained a GPT-2 decoder using the [Spotify Million Song Dataset](https://www.kaggle.com/datasets/notshrirang/spotify-million-song-dataset) to create a lyrics generator.
+
 
 - Train with single GPU
 ```
 python train.py
 ```
 
-- Generate lyrics given 
+- Train with multiple GPUs
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node=4 train.py
+```
+
+- Generate lyrics
 ```
 python generate.py
 ```
+
+I used my pre-trained lyric generator to produce a song lyrics about ex-girlfriend and as shown below, it generated some fun lyrics:
+"Sometimes I tried ~", "we were all dressed in here", "That's the final hour" ... haha 🤣🤣🤣
+
+<p align="center">
+<img width="500" src="https://github.com/user-attachments/assets/91f81819-6ccd-4402-9d4c-9e8c8c5b7e18">
+</p>
