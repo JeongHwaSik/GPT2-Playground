@@ -1,3 +1,9 @@
+# Notice
+Big thanks to Andrej Karpathy for creating and sharing great [Youtube video](https://www.youtube.com/@AndrejKarpathy) online! This repository is created with reference to the corresponding video.
+
+<br>
+</br>
+
 # 1. Training Optimization Analysis with GPT-2
 
 ## 🌴🌳🌲 Branch Overview
